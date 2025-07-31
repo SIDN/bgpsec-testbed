@@ -2,7 +2,7 @@
 
 This repository contains everything necessary to run 2- and 4-router topologies with the currently available routers supporting BGPsec. 
 This README includes more information on the repository and documentation on how to start the topologies. 
-For more information on the current state of BGPsec implementations please refer to our blog: Link.
+For more information on the current state of BGPsec implementations please refer to our blog: [BGPsec - Could you run it if you wanted to?](https://www.sidnlabs.nl/en/news-and-blogs/bgpsec-could-you-run-it-if-you-wanted-to)
 
 > [!CAUTION]
 > This software is experimental and not meant to be used in production. Use this software at your own risk.
