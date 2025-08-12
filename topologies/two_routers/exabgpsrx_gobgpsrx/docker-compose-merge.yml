@@ -1,0 +1,41 @@
+
+services: 
+  exabgpsrx_one:
+    container_name: exabgpsrx_one
+    image: exabgpsrx_merge
+    depends_on: 
+      - gobgpsrx_two
+    build:
+      context: ../../../docker_images/exabgpsrx_merge
+      network: host
+    volumes: 
+      - ../../../key_setup/testbed_keys:/opt/bgp-srx-examples/bgpsec-keys/
+      - ../../configs/exabgpsrx/exabgp-as64602.conf:/etc/exabgp.conf
+      - ../../configs/srxcryptoapi.conf:/usr/local/etc/srxcryptoapi.conf
+    networks:
+      bgp:
+        ipv4_address: 10.0.0.2
+
+  gobgpsrx_two:
+    container_name: gobgpsrx_two
+    image: gobgpsrx
+    build:
+      context: ../../../docker_images/gobgpsrx
+      network: host
+    volumes:     
+      - ../../../key_setup/testbed_keys:/var/lib/bgpsec-keys
+      - ../../configs/gobgpsrx/gobgpd-as64603.conf:/etc/gobgpd.conf
+      - ../../configs/srxcryptoapi.conf:/usr/local/etc/srxcryptoapi.conf
+    networks:
+      bgp:
+        ipv4_address: 10.0.0.3
+
+
+networks:
+  bgp:
+    driver_opts:
+      com.docker.network.bridge.name: br-bgp 
+    ipam:
+      driver: default
+      config: 
+        - subnet: 10.0.0.0/8
